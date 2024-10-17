@@ -9,6 +9,10 @@ COLLECTION_NAME = "visa_data"
 PIPELINE_NAME: str = "usvisa"
 ARTIFACT_DIR: str = "artifact"
 
+FILE_NAME = "usvisa.csv"
+TRAIN_FILE_NAME = "train.csv"
+TEST_FILE_NAME = "test.csv"
+
 MODEL_FILE_NAME = "model.pkl"
 
 
