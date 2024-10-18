@@ -4,16 +4,18 @@ from us_visa.exception import CustomException
 from us_visa.logger import logging
 
 from us_visa.components.data_ingestion import DataIngestion
-from us_visa.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
-from us_visa.entity.config_entity import DataIngestionConfig, DataValidationConfig
+from us_visa.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, DataTransformationArtifact
+from us_visa.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
 
 from us_visa.components.data_validation import DataValidation
+from us_visa.components.data_transformation import DataTransformation
 
 class TrainingPipeline:
 
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
+        self.data_transformation_config = DataTransformationConfig
 
 
     def start_data_ingestion(self)-> DataIngestionArtifact:
@@ -48,9 +50,23 @@ class TrainingPipeline:
             raise CustomException(e,sys)
 
 
+    def start_data_transformation(self, data_ingestion_artifact: DataIngestionArtifact, data_validation_artifact: DataValidationArtifact)-> DataTransformationArtifact:
+        try:
+            data_transformation = DataTransformation(data_ingestion_artifact=data_ingestion_artifact,
+                                                     data_transformation_config=self.data_transformation_config,
+                                                     data_validation_artifact=data_validation_artifact)
+            data_transformation_artifact = data_transformation.initiate_data_transformation()
+
+            return data_transformation_artifact
+
+        except Exception as e:
+            raise CustomException(e,sys)
+
+
     def run_pipeline(self) -> None:
         try:
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
+            data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact, data_validation_artifact=data_validation_artifact)
         except Exception as e:
             raise CustomException(e,sys)
