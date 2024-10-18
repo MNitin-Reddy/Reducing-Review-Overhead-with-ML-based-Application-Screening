@@ -31,3 +31,8 @@ class DataIngestionConfig:
     train_test_split_ratio: float =  os.getenv("DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO")
     collection_name:str =  os.getenv("DATA_INGESTION_COLLECTION_NAME")
 
+
+@dataclass 
+class DataValidationConfig:
+    data_validation_dir = os.path.join(training_pipeline_config.artifact_dir,os.getenv("DATA_VALIDATION_DIR_NAME"))
+    drift_report_file_path = os.path.join(data_validation_dir,os.getenv("DATA_VALIDATION_DRIFT_REPORT_DIR"), os.getenv("DATA_VALIDATION_DRIFT_REPORT_FILE_NAME"))
