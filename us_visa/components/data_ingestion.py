@@ -28,7 +28,7 @@ class DataIngestion:
         try:
             logging.info(f"Exporting data from MongoDB")
             usvisa_data = USvisaData()
-            dataframe = USvisaData(collection_name= self.data_ingestion_config.collection_name)
+            dataframe = usvisa_data.export_collection_as_dataframe(collection_name= self.data_ingestion_config.collection_name)
 
             logging.info(f"shape of dataframe: {dataframe.shape}")
 
@@ -53,10 +53,10 @@ class DataIngestion:
         logging.info("Entered split-data_as_train_test method of Data_ingestion.py")
 
         try:
-            train_set , test_set = train_test_split(dataframe, test_size=self.data_ingestion_config.train_test_split_ratio)
+            train_set , test_set = train_test_split(dataframe, test_size= float(self.data_ingestion_config.train_test_split_ratio))
             logging.info("Data split into train and test")
             
-            dir_path = os.oath.dirname(self.data_ingestion_config.training_file_path)
+            dir_path = os.path.dirname(self.data_ingestion_config.training_file_path)
             os.makedirs(dir_path, exist_ok=True)
 
             logging.info("Exporting train and test data to file path")

@@ -1,7 +1,10 @@
 import sys 
+import os 
+from dotenv import load_dotenv
+load_dotenv()
 
 from us_visa.configuration.mongo_db_connection import MongoDBClient
-from us_visa.constants import DATABASE_NAME
+#from us_visa.constants import DATABASE_NAME
 from us_visa.exception import CustomException
 from us_visa.logger import logging
 
@@ -16,7 +19,7 @@ class USvisaData:
 
     def __init__(self):
         try:
-            self.mongo_client = MongoDBClient(database_name=DATABASE_NAME)
+            self.mongo_client = MongoDBClient(database_name=os.getenv("DATABASE_NAME"))
         except Exception as e:
             raise CustomException(e,sys)
 
