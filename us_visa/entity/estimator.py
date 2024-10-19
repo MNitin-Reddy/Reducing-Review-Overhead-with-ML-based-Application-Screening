@@ -25,7 +25,7 @@ class TargetValueMapping:
         return dict(zip(mapping_response.values(),mapping_response.keys()))
     
 
-# class HyperparamTuner:
+# class OptunaHyperparamTuner:
 #     def __init__(self, X_train, y_train, X_test, y_test):
 #         # Store datasets as class attributes
 #         self.X_train = X_train
@@ -111,7 +111,7 @@ class USvisaModel:
             return self.trained_model_object.predict(transformed_feature)
 
         except Exception as e:
-            raise USvisaException(e, sys) from e
+            raise CustomException(e, sys) from e
 
     def __repr__(self):
         return f"{type(self.trained_model_object).__name__}()"
