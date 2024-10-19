@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/nitin/Desktop/Projects/US-Visa-Approval-Prediction/mlruns/670062151726330830/213b7fc1c8514ccd9e5d533e2e1a1d69/artifacts
+end_time: 1729321069208
+entry_point_name: ''
+experiment_id: '670062151726330830'
+lifecycle_stage: active
+run_id: 213b7fc1c8514ccd9e5d533e2e1a1d69
+run_name: final_run
+run_uuid: 213b7fc1c8514ccd9e5d533e2e1a1d69
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729321069009
+status: 4
+tags: []
+user_id: nitin

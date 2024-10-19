@@ -11,6 +11,8 @@ from pandas import DataFrame
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from neuro_mf import ModelFactory
+import mlflow
+import mlflow.sklearn
 # from sklearn.ensemble import RandomForestClassifier
 # from sklearn.neighbors import KNeighborsClassifier
 # from xgboost import XGBClassifier
@@ -55,6 +57,9 @@ class ModelTrainer:
             )
             model_obj = best_model_detail.best_model
 
+            mlflow.set_experiment("Best Classifier Model")
+            mlflow.set_tracking_uri("http://127.0.0.1:5000")
+
             # model_mapping = {
             # 'RandomForest': RandomForestClassifier,
             # 'KNN': KNeighborsClassifier,
@@ -75,6 +80,15 @@ class ModelTrainer:
             precision = precision_score(y_test, y_pred)  
             recall = recall_score(y_test, y_pred)
             metric_artifact = ClassificationMetricArtifact(f1_score=f1, precision_score=precision, recall_score=recall)
+
+            with mlflow.start_run(run_name="final_run"):
+                mlflow.log_params(best_model_detail.best_parameters)
+                mlflow.log_metrics({
+                    "accuracy": accuracy,
+                    "f1": f1,
+                    "recall": recall,
+                })
+                mlflow.sklearn.log_model(best_model_detail.model, best_model_detail.model )
             
             return best_model_detail, metric_artifact
         
