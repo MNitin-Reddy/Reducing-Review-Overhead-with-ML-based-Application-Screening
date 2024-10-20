@@ -166,7 +166,7 @@ Now everytime we commit to the repo Github Actions automatically deploys the new
 
 ## Conclusion
 
-With an accuracy of 93%, the best-performing model in this project is K-Nearest Neighbors (KNN). After hyperparameter tuning using Optuna, the optimal parameters were:
+With an accuracy of 93%, the best-performing model in this project is K-Nearest Neighbors (KNN). After hyperparameter tuning using Optuna and handling target column imbalance using SMOTE, the optimal parameters were:
 
 * algorithm: "brute"
 * weights: "distance"
