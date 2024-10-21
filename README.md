@@ -36,31 +36,39 @@ The dataset used in this project is provided by the Office of Foreign Labor Cert
 
 ## Exploratory Data Analysis:
 ### Initial Analysis Report
-* __no_of_employees__ has many outliers which can be Handled in Feature Engineering and no_of_employees is Right Skewed.
-* __yr_of_estab__ is left skewed and some outliers below the lower bound of Box plot.
-* __prevailing_wage__ is right skewed with outliers above upper bound of box plot.
+* __no_of_employees__ has many outliers which can be handled in Feature Engineering and no_of_employees is Right Skewed.
+* __yr_of_estab__ is left-skewed and some outliers are below the lower bound of the Box plot.
+* __prevailing_wage__ is right-skewed with outliers above the upper bound of the box plot.
 * There are No missing values in the dataset.
 * The __case_id__ column can be deleted because each row has unique values.
-* The case_status column is the target to predict.
+* The case_status column is the target for predicting.
 * In the Categorical column, features can be made Binary/ numerical in feature Encoding
 
 ### Final Analysis
 * __case_id__ column can be dropped as it is an ID.
-* __requires_job_training__ column can be dropped as it doesn't have much impact on target variable, Proved in visualization and __chi2 test__.
+* The __requires_job_training__ column can be dropped as it doesn't have much impact on the target variable, as Demonstrated in visualization and the __chi2 test__.
 * __no_of_employees__, __prevailing_wage__ columns have outllier which should be handled.
-* __continent__ columns has few unique values with very less count, which can be made as others.
+* __continent__ columns have few unique values with minimal count, which can be made as others.
 * Target column __case_status__ is imbalanced should be handled with techniques like __SMOTE__ before model building.
 
 ## Flow of project
 
 * **Data Ingestion:** Load and store raw data from MongoDB to artifacts.
+
 * **Data Validation:** Validate schema and detect data drift using Evidently.
+
 * **Feature Engineering:** Handle missing values, encode categorical variables, and scale numerical features.
+
 * **Feature Selection:** Apply multicollinearity analysis and chi-squared tests to select key features.
-* **Model Training:** Train on various calssification models and fins the best base model.
+  
+* **Model Training:** Train on various classification models and find the best base model.
+  
 * **Hyperparameter Tuning:** Use Optuna to optimize model parameters.
+  
 * **Experiment Tracking:** Log results and experiments with MLflow.
+  
 * **CI/CD:** Automate evaluation and deployment using GitHub Actions.
+  
 * **Deployment:** Use Docker to deploy the application on AWS EC2 via ECR.
 
 ## Pipeline Workflow
